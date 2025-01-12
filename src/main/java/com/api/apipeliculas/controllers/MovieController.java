@@ -24,4 +24,9 @@ public class MovieController {
     public Movie getMovieById(@PathVariable Long id) {
         return service.getMovieById(id);
     }
+
+    @PostMapping
+    public Movie saveMovie(@RequestBody Movie movie) {
+        return service.saveMovie(movie);
+    }
 }
