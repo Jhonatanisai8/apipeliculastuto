@@ -29,4 +29,9 @@ public class MovieController {
     public Movie saveMovie(@RequestBody Movie movie) {
         return service.saveMovie(movie);
     }
+
+    @PutMapping("/{id}")
+    public Movie updateMovie(@RequestBody Movie request, @PathVariable Long id) {
+        return service.updateMovie(request, id);
+    }
 }
