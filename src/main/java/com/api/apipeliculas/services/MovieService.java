@@ -23,4 +23,7 @@ public class MovieService {
                 .findById(id).get();
     }
 
+    public Movie saveMovie(Movie movie) {
+        return repository.save(movie);
+    }
 }
