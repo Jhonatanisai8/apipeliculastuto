@@ -22,7 +22,7 @@ public class MovieService {
         return repository
                 .findById(id)
                 .orElseThrow(
-                    () -> new RuntimeException("Movie not found with id: " + id));
+                        () -> new RuntimeException("Movie not found with id: " + id));
     }
 
     public Movie saveMovie(Movie movie) {
@@ -50,7 +50,7 @@ public class MovieService {
     }
 
     public Movie deleteMovie(Long id) {
-        Movie movie = repository.findById(id).get();
+        Movie movie = getMovieById(id);
         repository.delete(movie);
         return movie;
     }
