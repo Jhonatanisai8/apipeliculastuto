@@ -47,4 +47,10 @@ public class MovieService {
         return repository.save(existingMovie);
     }
 
+    public Movie deleteMovie(Long id) {
+        Movie movie = repository.findById(id).get();
+        repository.delete(movie);
+        return movie;
+    }
+
 }
