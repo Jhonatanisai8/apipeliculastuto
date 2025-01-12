@@ -26,4 +26,25 @@ public class MovieService {
     public Movie saveMovie(Movie movie) {
         return repository.save(movie);
     }
+
+    public Movie updateMovie(Movie request, Long id) {
+        Movie existingMovie = repository.findById(id).get();
+        if (request.getTitle() != null || !request.getTitle().isBlank()) {
+            existingMovie.setTitle(request.getTitle());
+        }
+        if (request.getDescription() != null || !request.getDescription().isBlank()) {
+            existingMovie.setDescription(request.getDescription());
+        }
+        if (request.getImageUrl() != null || !request.getImageUrl().isBlank()) {
+            existingMovie.setImageUrl(request.getImageUrl());
+        }
+        if (request.getRating() != null || request.getRating() > 0) {
+            existingMovie.setRating(request.getRating());
+        }
+        if (request.getYear() != null || request.getYear() > 0) {
+            existingMovie.setYear(request.getYear());
+        }
+        return repository.save(existingMovie);
+    }
+
 }
