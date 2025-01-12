@@ -20,7 +20,9 @@ public class MovieService {
 
     public Movie getMovieById(Long id) {
         return repository
-                .findById(id).get();
+                .findById(id)
+                .orElseThrow(
+                    () -> new RuntimeException("Movie not found with id: " + id));
     }
 
     public Movie saveMovie(Movie movie) {

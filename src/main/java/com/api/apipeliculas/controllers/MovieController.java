@@ -3,6 +3,7 @@ package com.api.apipeliculas.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.api.apipeliculas.models.Movie;
@@ -21,8 +22,15 @@ public class MovieController {
     }
 
     @GetMapping("/{id}")
-    public Movie getMovieById(@PathVariable Long id) {
-        return service.getMovieById(id);
+    public ResponseEntity<?> getMovieById(@PathVariable Long id) {
+        try {
+            return ResponseEntity
+            .ok(service.getMovieById(id));
+        } catch (RuntimeException e) {
+            return ResponseEntity
+            .badRequest()
+            .body(e.getMessage());
+        }
     }
 
     @PostMapping
