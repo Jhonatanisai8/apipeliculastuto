@@ -2,7 +2,8 @@ package com.api.apipeliculas.controllers;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +29,7 @@ public class MovieController {
             .ok(service.getMovieById(id));
         } catch (RuntimeException e) {
             return ResponseEntity
-            .badRequest()
+            .status(HttpStatus.NOT_FOUND)
             .body(e.getMessage());
         }
     }
@@ -44,7 +45,14 @@ public class MovieController {
     }
 
     @DeleteMapping("/{id}")
-    public Movie deleteMovie(@PathVariable Long id) {
-        return service.deleteMovie(id);
+    public ResponseEntity<?> deleteMovie(@PathVariable Long id) {
+        try {
+            return ResponseEntity
+            .ok(service.deleteMovie(id));
+        } catch (RuntimeException e) {
+            return ResponseEntity
+            .badRequest()
+            .body(e.getMessage());
+        }
     }
 }
