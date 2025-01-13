@@ -43,8 +43,16 @@ public class MovieController {
     }
 
     @PutMapping("/{id}")
-    public Movie updateMovie(@RequestBody Movie request, @PathVariable Long id) {
-        return service.updateMovie(request, id);
+    public ResponseEntity<?> updateMovie(@RequestBody Movie request, @PathVariable Long id) {
+        try {
+            Movie movieChange = service.updateMovie(request, id);
+            return ResponseEntity
+                    .ok(movieChange);
+        } catch (RuntimeException e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(e.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")
