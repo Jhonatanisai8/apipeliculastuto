@@ -51,7 +51,7 @@ public class MovieController {
             .ok(service.deleteMovie(id));
         } catch (RuntimeException e) {
             return ResponseEntity
-            .badRequest()
+            .status(HttpStatus.NOT_FOUND)
             .body(e.getMessage());
         }
     }
