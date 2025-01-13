@@ -26,17 +26,20 @@ public class MovieController {
     public ResponseEntity<?> getMovieById(@PathVariable Long id) {
         try {
             return ResponseEntity
-            .ok(service.getMovieById(id));
+                    .ok(service.getMovieById(id));
         } catch (RuntimeException e) {
             return ResponseEntity
-            .status(HttpStatus.NOT_FOUND)
-            .body(e.getMessage());
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(e.getMessage());
         }
     }
 
     @PostMapping
-    public Movie saveMovie(@RequestBody Movie movie) {
-        return service.saveMovie(movie);
+    public ResponseEntity<Movie> saveMovie(@RequestBody Movie movie) {
+        Movie movieSave = service.saveMovie(movie);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(movieSave);
     }
 
     @PutMapping("/{id}")
@@ -48,11 +51,11 @@ public class MovieController {
     public ResponseEntity<?> deleteMovie(@PathVariable Long id) {
         try {
             return ResponseEntity
-            .ok(service.deleteMovie(id));
+                    .ok(service.deleteMovie(id));
         } catch (RuntimeException e) {
             return ResponseEntity
-            .status(HttpStatus.NOT_FOUND)
-            .body(e.getMessage());
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(e.getMessage());
         }
     }
 }
