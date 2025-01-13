@@ -30,7 +30,7 @@ public class MovieService {
     }
 
     public Movie updateMovie(Movie request, Long id) {
-        Movie existingMovie = repository.findById(id).get();
+        Movie existingMovie = getMovieById(id);
         if (request.getTitle() != null || !request.getTitle().isBlank()) {
             existingMovie.setTitle(request.getTitle());
         }
